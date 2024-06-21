@@ -17,14 +17,9 @@ const FundAccount = () => {
     dispatch(listTraders());
   },[])
 
-  React.useEffect(() => {
-    if(traders){
-      console.log('trado',traders)
-    }
-    
-  },[traders])
 
 
+ 
   return (
     <div>
       <main className="app-py-1" style={{ height: '100vh' }}>

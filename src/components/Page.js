@@ -9,7 +9,7 @@ import { Box } from '@mui/material';
 const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Helmet>
-      <title>{`${title} | Swift Trade`}</title>
+      <title>{`${title} | QuantFury Index Trade`}</title>
       {meta}
     </Helmet>
 

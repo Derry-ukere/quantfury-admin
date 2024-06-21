@@ -14,7 +14,7 @@ const Account = () => {
           <div className="row">
             <div className="col l6 s12 offset-l3">
               <ul className="collection">
-                <Link className="collection-item bg" to="#">
+                <Link className="collection-item bg" to="/user/settings/add-barcode">
                   <li>
                     <div
                       style={{
@@ -35,7 +35,7 @@ const Account = () => {
                     Upload Barcodes
                   </li>
                 </Link>
-                <Link className="collection-item bg" to="#">
+                <Link className="collection-item bg" to="/user/settings/add-wallet-address">
                   <li>
                     <div
                       style={{
@@ -54,6 +54,27 @@ const Account = () => {
                       </span>
                     </div>
                     Set Wallet Address
+                  </li>
+                </Link>
+                <Link className="collection-item bg" to="/user/settings/contact">
+                  <li>
+                    <div
+                      style={{
+                        padding: '1rem 1rem 0.8rem',
+                        background: 'rgb(50, 167, 226)',
+                        borderRadius: '10px',
+                        display: 'inline-block',
+                        marginRight: '1rem',
+                      }}
+                    >
+                      <span
+                        className="material-icons notranslate"
+                        style={{ fontSize: '30px', margin: '0px', padding: '0px', color: 'white' }}
+                      >
+                        person
+                      </span>
+                    </div>
+                    Set company contact details
                   </li>
                 </Link>
               </ul>

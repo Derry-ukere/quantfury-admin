@@ -52,12 +52,18 @@ export default function Router() {
         { path: 'deposits', element: <Deposits /> },
         { path: 'settings', element: <Accounts /> },
         { path: 'withdrawals', element: <Withdrawal /> },
+        { path: 'bots', element: <Bots /> },
+        { path: 'create-bot', element: <CreateBot /> },
         { path: 'trading', element: <Trading /> },
         { path: 'signals', element: <Signals /> },
         { path: 'trading/new-trader', element: <NewTrader /> },
         { path: 'trading/traders', element: <Traders /> },
         { path: 'image/:imageId', element: <ImagePage /> },
         { path: 'settings/create-admin', element: <Signup /> },
+        { path: 'settings/add-barcode', element: <AddBarcode /> },
+        { path: 'settings/add-wallet-address', element: <AddWalletAddress /> },
+        { path: 'settings/contact', element: <ContactDetails /> }, 
+        { path: 'trading/bot-trading', element: <BotTrading /> },
         // { path: 'settings/update-password', element: <UpdatePassword /> },
         { path: 'admin', element: <Admins /> },
       ],
@@ -80,5 +86,16 @@ const ImagePage = Loadable(lazy(() => import('../pages/user/ImageUrl')));
 const NewTrader = Loadable(lazy(() => import('../pages/user/NewTrader')));
 const Traders = Loadable(lazy(() => import('../pages/user/Traders'))); 
 const Admins = Loadable(lazy(() => import('../pages/user/Admins')));
+const AddBarcode = Loadable(lazy(() => import('../pages/user/AddBarcode')));
+const AddWalletAddress = Loadable(lazy(() => import('../pages/user/AddWalletAdd')));
+const ContactDetails = Loadable(lazy(() => import('../pages/user/ContactDetails')));
+const Bots = Loadable(lazy(() => import('../pages/user/Bots')));
+const CreateBot = Loadable(lazy(() => import('../pages/user/CreateBot')));
+const BotTrading = Loadable(lazy(() => import('../pages/user/BotTrading')));
+
+
+
+
+
 // const UpdatePassword = Loadable(lazy(() => import('../pages/user/user/UpdatePassword')));
  

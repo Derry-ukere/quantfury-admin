@@ -18,8 +18,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://swifttrading.live/">
-        Swift Trading
+      <Link color="inherit" href="https://quantfuryindex.vercel.app/">
+        Quantfury
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -59,14 +59,23 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://picsum.photos/2000/3000?random=10)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square 
+        
+        sx={{
+          backgroundImage: 'url(https://picsum.photos/2000/3000?random=10)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+        >
           <Box
             sx={{
               my: 8,

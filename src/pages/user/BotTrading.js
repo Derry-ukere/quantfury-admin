@@ -14,40 +14,34 @@ import Select from '@mui/material/Select';
 import { LoadingButton } from '@mui/lab';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import Checkbox from '@mui/material/Checkbox';
 
 
 import Page from '../../components/Page';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
-import { getAllTrader,registerBotTrade } from '../../redux/slices/trades';
+import { registerBotTrade } from '../../redux/slices/trades';
 import { listUsers } from '../../redux/slices/user';
+import { getAllBots } from '../../redux/slices/bot/allbots';
+
 
 
 const Privacy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { users } = useSelector((state) => state.users);
+  const {   bots,  } = useSelector((state) => state.allBots); 
   const [open, setOpen] = React.useState(false);
   const [amountEntered, setAmount] = React.useState('');
-  const [traders, setTrader] = React.useState(null);
   const [positions, setPositon] = React.useState('');
   const [currencyPair, setCurrencyPair] = React.useState('');
-  const [traderName, settraderName] = React.useState('');
+  const [traderName, setTraderName] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [userId, setUserId] = React.useState('');
   const [status, setStatus] = React.useState('');
 
-
-
-
   React.useEffect(() => {
-    async function getAllTraders() {
-      const traders = await dispatch(getAllTrader())
-      setTrader(traders)
-    }
-    getAllTraders();
-  }, []);
+    dispatch(getAllBots());
+  },[]);
   
 
   React.useEffect(() => {
@@ -187,10 +181,9 @@ const getImageUrl = (currencyPair) => {
 }
 const clearState =() => {
   setAmount('')
- 
 }
   const handleSubmit =  (event) => {
-    setLoading(true)
+    // setLoading(true)
     event.preventDefault();
     const options = {
       amountEntered,
@@ -201,6 +194,7 @@ const clearState =() => {
       status,
       imgUrl : getImageUrl(currencyPair)
     }
+    console.log(options)
     dispatch(registerBotTrade(options)).then(() => {
       setOpen(true)
       setLoading(false);
@@ -209,16 +203,10 @@ const clearState =() => {
   };
 
   const push = () => {
-    navigate('/user/trading/new-trader')
+    navigate('/user/create-bot')
   }
 
-  const view =() => {
-    navigate('/user/trading/traders')
-  }
-  
-  const createSignals =() => {
-    navigate('/user/signals')
-  }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -226,7 +214,6 @@ const clearState =() => {
 
     setOpen(false);
   };
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
   return (
@@ -239,7 +226,7 @@ const clearState =() => {
     <div className="app-relative hero-mixed">
       <div className="overlay1" />
       <div className="fade-appear-done fade-enter-done" style={{ paddingBottom: '6rem', paddingTop: '2rem' }}>
-        <h1 className="center app-relative white-text">Place a Trade</h1>
+        <h1 className="center app-relative white-text">Trade with bot</h1>
       </div>
     </div>
     <main className="app-py-1" style={{ height: '100vh' }}>
@@ -249,14 +236,9 @@ const clearState =() => {
           
             <div className="col l4 offset-l4 s12">
             <LoadingButton  type = 'submit' variant="contained" fullWidth style={{marginBottom:10}} onClick = {push}>
-             Create New Trader
+             Create New Bot
             </LoadingButton>
-            <LoadingButton  type = 'submit' variant="contained" fullWidth style={{marginBottom:20}} onClick = {view}>
-             View Traders
-            </LoadingButton>
-            <LoadingButton  type = 'submit' variant="contained" fullWidth style={{marginBottom:20}} onClick = {createSignals}>
-             Set Signals
-            </LoadingButton>
+
               <div className="card-panel">
                 <form autoComplete="off" onSubmit={handleSubmit}>
                   <div>
@@ -300,19 +282,19 @@ const clearState =() => {
                   </div>
                   <div className="input-field">
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Select Trader</InputLabel>
+                      <InputLabel id="demo-simple-select-label">Select bot</InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={traderName}
                         label="Select Coin"
-                        onChange={(e) => settraderName(e.target.value) }
+                        onChange={(e) => setTraderName(e.target.value) }
                         required
                       >
-                        {!traders ? (<MenuItem>loading ...</MenuItem>
-                        ) :  traders.map((trader) => (
-                          <MenuItem key={trader.id} value={trader.name}>
-                            {trader.name}   {trader.subscribers.includes(userId)  &&  <Checkbox {...label} defaultChecked /> }
+                        {!bots ? (<MenuItem>loading ...</MenuItem>
+                        ) :  bots.map((bot) => (
+                          <MenuItem key={bot.id} value={bot.botName}>
+                            {bot.botName}  
                           </MenuItem>
                         ))}
                       </Select>

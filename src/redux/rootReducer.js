@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 // slices
@@ -16,6 +17,30 @@ import updateDepositStaus from './slices/deposits/update-deposit-status';
 
 // withdrawals
 import getAllWithdrawalsData from './slices/withdrawal/get-withdrawal';
+
+// verify trader
+// eslint-disable-next-line import/no-named-as-default
+import verifytrader from './slices/trader/verifyTrader';
+
+// setting
+// eslint-disable-next-line import/no-named-as-default
+import uploadBarCode from './slices/settings/uploadBarCode';
+// eslint-disable-next-line import/no-named-as-default
+import setWalletAddress from './slices/settings/setWalletAddress';
+import setContactAddress from './slices/settings/setContactAddress';
+
+// bots
+import createBot from './slices/bot/createBot';
+import allBots from './slices/bot/allbots';
+import updateBot from './slices/bot/updateBot';
+
+
+
+
+
+
+
+
 
 
 
@@ -44,7 +69,19 @@ const rootReducer = combineReducers({
   updateDepositStaus,
 
   // withdrawals
- allWithdrawals : getAllWithdrawalsData
+ allWithdrawals : getAllWithdrawalsData,
+
+ // trader
+ verifytrader,
+
+ // settings
+ uploadBarCode,
+ setWalletAddress,
+ setContactAddress,
+ // bot
+ createBot,
+ allBots,
+ updateBot,
 });
 
 export { rootPersistConfig, rootReducer };

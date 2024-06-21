@@ -4,9 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -33,7 +35,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton onClick={() => handleCLick('settings')}>
         <ListItemIcon>
-          <PeopleIcon />
+          <SettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Settings" sx={{ color: 'black' }} />
       </ListItemButton>
@@ -48,6 +50,12 @@ export const MainListItems = () => {
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Withdrawals" sx={{ color: 'black' }} />
+      </ListItemButton>
+      <ListItemButton onClick={() => handleCLick('bots')}>
+        <ListItemIcon>
+          <PrecisionManufacturingIcon />
+        </ListItemIcon>
+        <ListItemText primary="Bots" sx={{ color: 'black' }} />
       </ListItemButton>
       <ListItemButton onClick={() => logout()}>
         <ListItemIcon>
