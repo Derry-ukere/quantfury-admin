@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Snackbar, Alert } from '@mui/material';
+import { Box, TextField, Typography, Snackbar, Alert } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { UploadAvatar } from '../../components/upload';
+
 
 
 
@@ -18,16 +20,23 @@ const CreateBotPage = () => {
     const [subscribers, setSubscribers] = useState('');
     const [info, setInfo] = useState('');
     const [creator, setCreator] = useState('');
+    const [avatarUrl, setAvatarUrl] = React.useState(null);
+    const [file, setFile] = React.useState('');
+  
+
+
+
 
     const handleCreateBot = () => {
         if (!botName || !totalTrades || !totalLosses || !subscribers || !info || !creator) {
+            
             // eslint-disable-next-line no-alert
             alert('Please fill in all fields.');
             return;
         }
-        dispatch(createBotReducer({ botName, totalTrades, totalLosses, subscribers, info, creator }))
+        dispatch(createBotReducer({ botName, totalTrades, totalLosses, subscribers, info, creator,file }))
         // Handle the creation logic here, e.g., send the bot details to an API
-        console.log('Creating bot:', { botName, totalTrades, totalLosses, subscribers, info, creator });
+       
         // Clear the form fields
         setBotName('');
         setTotalTrades('');
@@ -36,6 +45,19 @@ const CreateBotPage = () => {
         setInfo('');
         setCreator('');
     };
+
+    const handleDropAvatar = React.useCallback((acceptedFiles) => {
+        const file = acceptedFiles[0];
+    
+        if (file) {
+          setFile(file)
+          setAvatarUrl(
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          );
+        }
+      }, []);
 
     return (
         <Box p={2} display="flex" flexDirection="column" alignItems="center">
@@ -51,6 +73,26 @@ const CreateBotPage = () => {
             <Typography variant="h4" gutterBottom>
                 Create a New Bot
             </Typography>
+            <UploadAvatar
+        accept="image/*"
+        file={avatarUrl}
+        onDrop={handleDropAvatar}
+        helperText={
+          <Typography
+            variant="caption"
+            sx={{
+              mt: 2,
+              mx: 'auto',
+              display: 'block',
+              textAlign: 'center',
+              color: 'text.secondary',
+            }}
+          >
+            Allowed *.jpeg, *.jpg, *.png, *.gif
+            <br /> max size of 5mb
+          </Typography>
+        }
+      />
             <TextField
                 fullWidth
                 margin="normal"
@@ -110,7 +152,7 @@ const CreateBotPage = () => {
                 value={creator}
                 onChange={(e) => setCreator(e.target.value)}
             />
-            <LoadingButton variant="contained" color="primary" onClick={handleCreateBot} loading={isLoading}>
+            <LoadingButton variant="contained" color="primary" onClick={handleCreateBot} loading={isLoading} >
                 Create Bot
             </LoadingButton>
         </Box>

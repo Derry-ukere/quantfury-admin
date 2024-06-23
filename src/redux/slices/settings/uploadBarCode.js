@@ -56,10 +56,7 @@ export function uploadBarCode(file, barcodeType) {
     dispatch(slice.actions.startLoading());
     try {
       uploadTask(file).then(async (url) => {
-        // const userRef = doc(DB, 'settings', `${barcodeType}`);
-        // await updateDoc(userRef, {
-
-        // });
+  
         await setDoc(doc(DB, 'settings', `${barcodeType}`), {
             barcodeType,
             url,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography,Alert } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography, Alert } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -14,8 +14,8 @@ import { uploadBarCode, } from '../../redux/slices/settings/uploadBarCode';
 
 
 const BarcodeUpload = () => {
-    const dispatch = useDispatch();
-    const {  isLoading,error, success } = useSelector((state) => state.uploadBarCode);
+  const dispatch = useDispatch();
+  const { isLoading, error, success } = useSelector((state) => state.uploadBarCode);
 
 
   const [barcodeType, setBarcodeType] = useState('');
@@ -24,7 +24,7 @@ const BarcodeUpload = () => {
 
   const handleDropAvatar = React.useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
- 
+
     if (file) {
       setFile(file)
       setAvatarUrl(
@@ -46,15 +46,15 @@ const BarcodeUpload = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" p={2}>
-        <Snackbar
-          open={success || error}
-          autoHideDuration={600}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          <Alert  severity="success" sx={{ width: '100%' }}>
-           {(success  && "success") || (error && error)}
-          </Alert>
-        </Snackbar>
+      <Snackbar
+        open={success || error}
+        autoHideDuration={600}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          {(success && "success") || (error && error)}
+        </Alert>
+      </Snackbar>
       <Typography variant="h5" gutterBottom>
         Upload Your Wallet Address Barcode
       </Typography>
@@ -73,26 +73,26 @@ const BarcodeUpload = () => {
         </Select>
       </FormControl>
       <UploadAvatar
-                        accept="image/*"
-                        file={avatarUrl}
-                        onDrop={handleDropAvatar}
-                        helperText={
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              mt: 2,
-                              mx: 'auto',
-                              display: 'block',
-                              textAlign: 'center',
-                              color: 'text.secondary',
-                            }}
-                          >
-                            Allowed *.jpeg, *.jpg, *.png, *.gif
-                            <br /> max size of 5mb
-                          </Typography>
-                        }
-                    />
-      <LoadingButton variant="contained" color="primary" onClick={uploadFIle} fullWidth margin="normal" loading= {isLoading}>
+        accept="image/*"
+        file={avatarUrl}
+        onDrop={handleDropAvatar}
+        helperText={
+          <Typography
+            variant="caption"
+            sx={{
+              mt: 2,
+              mx: 'auto',
+              display: 'block',
+              textAlign: 'center',
+              color: 'text.secondary',
+            }}
+          >
+            Allowed *.jpeg, *.jpg, *.png, *.gif
+            <br /> max size of 5mb
+          </Typography>
+        }
+      />
+      <LoadingButton variant="contained" color="primary" onClick={uploadFIle} fullWidth margin="normal" loading={isLoading}>
         Update Barcode
       </LoadingButton>
     </Box>
