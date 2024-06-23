@@ -217,7 +217,7 @@ export function createTrader(options, setLoading, setOpen) {
     const winings = Number(wins)
     const allosses = Number(losses)
     const uuid = uuidv4();
-    const traderId = uuid;
+    const traderId = uuid; 
     const total = allosses + winings
     const  winRate = winings/total * 100
     const  lossRate = 100 - winRate

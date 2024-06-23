@@ -5,6 +5,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { dispatch } from '../../store';
 import { FIREBASE_API } from '../../../config';
 
+import { uploadTask } from '../../../utils/uploadTask';
+
+
 const firebaseApp = initializeApp(FIREBASE_API);
 const DB = getFirestore(firebaseApp);
 
@@ -53,7 +56,7 @@ const generateUUID = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/
     return v.toString(16);
   });
 
-export function createBotReducer({ botName, totalTrades, totalLosses, subscribers, info, creator }) {
+export function createBotReducer({ botName, totalTrades, totalLosses, subscribers, info, creator,file }) {
   return async () => {
     dispatch(slice.actions.startLoading());
     const botId = generateUUID();
@@ -62,18 +65,24 @@ export function createBotReducer({ botName, totalTrades, totalLosses, subscriber
     const lossRate = (totalLosses / total) * 100;
 
     try {
-      await setDoc(doc(DB, 'bots', botId), {
-        id: botId,
-        botName,
-        totalTrades,
-        totalLosses,
-        winRate: `${winRate.toFixed(2)}%`,
-        lossRate: `${lossRate.toFixed(2)}%`,
-        subscribers,
-        info,
-        creator,
-      })
-    dispatch(slice.actions.success());
+      uploadTask(file).then(async (url) => {
+  
+        await setDoc(doc(DB, 'bots', botId), {
+          id: botId,
+          botName,
+          totalTrades,
+          totalLosses,
+          winRate: `${winRate.toFixed(2)}%`,
+          lossRate: `${lossRate.toFixed(2)}%`,
+          subscribers,
+          info,
+          creator,
+          Imageurl : url,
+        })
+      dispatch(slice.actions.success());
+      });
+      
+
     } catch (error) {
       const errorMessage = error.message;
       console.log('err', errorMessage);
