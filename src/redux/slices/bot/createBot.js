@@ -78,6 +78,7 @@ export function createBotReducer({ botName, totalTrades, totalLosses, subscriber
           info,
           creator,
           Imageurl : url,
+          subscribersList : []
         })
       dispatch(slice.actions.success());
       });
