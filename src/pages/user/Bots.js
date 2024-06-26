@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import { Box, Button, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useNavigate } from 'react-router-dom';
+
 
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
@@ -13,10 +15,13 @@ import { updateBotReducer, } from '../../redux/slices/bot/updateBot';
 
 
 const ManageBotsPage = () => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {   bots,  } = useSelector((state) => state.allBots); 
     const {    success, isLoading } = useSelector((state) => state.updateBot);
+    const [open, setOpen] = useState(false);
+    const [selectedBot, setSelectedBot] = useState(null);
+  
    
     React.useEffect(() => {
       dispatch(getAllBots());
@@ -24,12 +29,9 @@ const ManageBotsPage = () => {
  
 
 
-
-  const [open, setOpen] = useState(false);
-  const [selectedBot, setSelectedBot] = useState(null);
-
-
-
+  const handleCLick = (location) => {
+    navigate(`/user/${location}`);
+  };
   const handleUpdate = (bot) => {
     setSelectedBot(bot);
     setOpen(true);
@@ -47,8 +49,8 @@ const ManageBotsPage = () => {
       <Typography variant="h4" gutterBottom>
         Manage Bots
       </Typography>
-      <Button href='/user/create-bot'>Create New Bots</Button>
-      <Button href='/user/trading/bot-trading'>Trade with bot</Button>
+      <Button onClick={()=> handleCLick('create-bot')}>Create New Bots</Button>
+      <Button onClick={()=> handleCLick('trading/bot-trading')} >Trade with bot</Button>
       <List>
         {bots.map((bot) => (
           <ListItem key={bot.id} alignItems="flex-start">

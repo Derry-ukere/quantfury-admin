@@ -29,7 +29,7 @@ const headers = ['Name','Image',]
 export default function BasicTable({users}) {    
     const [dep, setDep] = React.useState([])
     const dispatch = useDispatch();
-    const {  isLoading,success } = useSelector((state) => state.verifytrader);
+    const {  success } = useSelector((state) => state.verifytrader);
 
     const deleteAdmin = (id, index)=> {
         const LoadedState = [...dep];
@@ -43,8 +43,16 @@ export default function BasicTable({users}) {
         })
     }
 
-     const markAsverified = (tradersId) => {
-        dispatch(verifytrader(tradersId))
+     const markAsverified = (tradersId,index) => {
+      const LoadedState = [...dep];
+        LoadedState[index].verifying = true;
+        setDep(LoadedState)
+        dispatch(verifytrader(tradersId)).then(()=>{
+          const LoadedState = [...dep];
+          LoadedState[index].verifying = false;
+          LoadedState[index].justVerified = true;
+          setDep(LoadedState)
+        })
      }
 
   React.useEffect(()=>{
@@ -52,11 +60,13 @@ export default function BasicTable({users}) {
       const cloned = users.map((users) => (
         {
           loading : false,
+          verifying : false,
           deleted : false,
           firstName : users.name,
           imageUrl: users.imageUrl,
           id : users.id, 
-          verified : users.verified
+          verified : users.verified,
+          justVerified: false,
         }
       ))
       setDep(cloned)
@@ -102,7 +112,7 @@ export default function BasicTable({users}) {
               </TableCell>
               <TableCell align="center" onClick={() => downloadFile(user.backView)}><img alt = "no ID" src = {user.imageUrl} style = {{height : 100, width: 100}}/></TableCell>
               <TableCell align="center"><LoadingButton  variant="outlined"  disabled = {user.deleted} loading = {user.loading} onClick = {() => deleteAdmin(user.id, index)}>{user.deleted ? 'Deleted': "Delete Trader"}</LoadingButton> </TableCell>
-              <TableCell align="center"><LoadingButton  variant="outlined"  loading = {isLoading} onClick = {() => markAsverified(user.id)}>Mark as Verified</LoadingButton> </TableCell>
+              <TableCell align="center"><LoadingButton  variant="outlined"  loading = {user.justVerified} onClick = {() => markAsverified(user.id,index)}>{user.justVerified ? 'done': "Mark as Verify"}d</LoadingButton> </TableCell>
             </TableRow>
           ))}
         </TableBody>
